@@ -9,8 +9,8 @@ const sanitizeBasicData = (data) => {
 };
 
 const sanitizeArray = (data) => {
-  return data.map(({ fields, sys: { id } }) => {
-    return { ...cleanFields(fields), id };
+  return data.map(({ fields }) => {
+    return { ...cleanFields(fields) };
   });
 };
 
