@@ -1,5 +1,8 @@
-import "./style.scss";
+import Preloader from "./classes/preloader";
 
+import "./styles/index.scss";
+
+const preloader = new Preloader(".preloader");
 const app = document.querySelector<HTMLDivElement>("#app")!;
 
 app.innerHTML = `

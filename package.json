@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "dotenv": "^16.0.1",
+    "gsap": "^3.10.4",
     "node-fetch": "^2.6.6"
   }
 }

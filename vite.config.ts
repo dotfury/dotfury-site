@@ -6,7 +6,7 @@ import featuredWork from "./data/featured.json";
 import medias from "./data/medias.json";
 
 const options = {};
-const locals = { name: "My Pug", medias, featuredWork, about };
+const locals = { medias, featuredWork, about };
 
 export default defineConfig({
   plugins: [pugPlugin(options, locals)],
