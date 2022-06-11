@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const fs = require("fs");
 const fetch = require("node-fetch");
+const showdown = require("showdown");
 
 const sanitizer = require("./contentful-sanitizer");
 
@@ -13,6 +14,8 @@ const ABOUT_PAGE_FILE = "./data/about.json";
 const FEATURED_WORK_FILE = "./data/featured.json";
 const EXPERIMENTS_FILE = "./data/experiment.json";
 const MEDIAS_FILE = "./data/medias.json";
+
+const converter = new showdown.Converter();
 
 let MEDIAS = [];
 
@@ -35,8 +38,13 @@ function parseMedias(data) {
 
 function parseAboutSection(data) {
   const content = sanitizer.sanitizeBasicData(data.items[0]);
+  const { title, introduction, text } = content;
 
-  writeToFile(ABOUT_PAGE_FILE, content);
+  writeToFile(ABOUT_PAGE_FILE, {
+    title,
+    introduction,
+    text: converter.makeHtml(text),
+  });
 }
 
 async function parseFeaturedWork(data) {
@@ -51,7 +59,7 @@ async function parseFeaturedWork(data) {
         title,
         link,
         image,
-        description,
+        description: converter.makeHtml(description),
       };
     }
   );
