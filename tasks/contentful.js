@@ -11,6 +11,7 @@ const BASE_URL = `https://cdn.contentful.com/spaces/${SPACE}/entries?access_toke
 
 const ABOUT_PAGE_FILE = "./data/about.json";
 const FEATURED_WORK_FILE = "./data/featured.json";
+const EXPERIMENTS_FILE = "./data/experiment.json";
 const MEDIAS_FILE = "./data/medias.json";
 
 let MEDIAS = [];
@@ -32,7 +33,7 @@ function parseMedias(data) {
   return fileUrls;
 }
 
-function parseAboutPage(data) {
+function parseAboutSection(data) {
   const content = sanitizer.sanitizeBasicData(data.items[0]);
 
   writeToFile(ABOUT_PAGE_FILE, content);
@@ -58,6 +59,23 @@ async function parseFeaturedWork(data) {
   writeToFile(FEATURED_WORK_FILE, content);
 }
 
+async function parseExperiments(data) {
+  const medias = await parseMedias(data.includes.Asset);
+  const cleanedData = sanitizer.sanitizeArray(data.items);
+  const content = cleanedData.map(({ title, link, image }) => {
+    const imageId = image.sys.id;
+    const imageContent = medias.find((m) => m.includes(imageId));
+
+    return {
+      title,
+      link,
+      image: imageContent,
+    };
+  });
+
+  writeToFile(EXPERIMENTS_FILE, content);
+}
+
 function getContentType(type) {
   return fetch(`${BASE_URL}${type}`)
     .then((response) => response.json())
@@ -69,9 +87,11 @@ function getContentType(type) {
 async function getContent() {
   const aboutPage = await getContentType("aboutPage");
   const featuredWork = await getContentType("featuredWork");
+  const experiments = await getContentType("creativeProject");
 
-  parseAboutPage(aboutPage);
+  parseAboutSection(aboutPage);
   parseFeaturedWork(featuredWork);
+  parseExperiments(experiments);
 
   writeToFile(MEDIAS_FILE, MEDIAS);
 }
