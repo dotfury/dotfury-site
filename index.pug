@@ -1,7 +1,9 @@
-h1.special dotfury
-p #{about.introduction}
-div
-  | !{about.text}
+section.title-section.section-block
+  h1.special dotfury
+section.introduction-section.section-block
+  p #{about.introduction}
+  .detail-section
+    | !{about.text}
 
 .display-slider
   each work in featuredWork 

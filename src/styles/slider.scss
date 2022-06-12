@@ -1,6 +1,8 @@
 .display-slider {
   display: flex;
   gap: 10px;
+  margin-bottom: 20px;
   max-width: 100vw;
   overflow-x: scroll;
+  padding: 10px 0;
 }
