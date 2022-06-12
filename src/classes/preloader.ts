@@ -17,7 +17,9 @@ export default class Preloader {
     this.mediaCount = this.medias.length;
     this.loadedMediaCount = 0;
     this.animateOut = null;
+  }
 
+  start() {
     this.loadMedias();
   }
 

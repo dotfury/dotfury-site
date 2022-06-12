@@ -1,11 +1,18 @@
-h1 Hello World
-p I'm a cool Vite project!
+h1.special dotfury
 p #{about.introduction}
 div
   | !{about.text}
 
-img(src=medias[0] width="250")
+.display-slider
+  each work in featuredWork 
+    .featured-work
+      a(href=work.link target="_blank")
+        img(src=work.image width="250")
+      div 
+        | !{work.description}
 
-img(src=medias[4] width="250")
-
-#app
+.display-slider
+  each experiment in experiments 
+    .featured-work 
+      a(href=experiment.link target="_blank")
+        img(src=experiment.image width="250")
