@@ -38,12 +38,14 @@ function parseMedias(data) {
 
 function parseAboutSection(data) {
   const content = sanitizer.sanitizeBasicData(data.items[0]);
-  const { title, introduction, text } = content;
+  const { title, introduction, frontEnd, backEnd, creative } = content;
 
   writeToFile(ABOUT_PAGE_FILE, {
     title,
     introduction,
-    text: converter.makeHtml(text),
+    frontEnd: converter.makeHtml(frontEnd),
+    backEnd: converter.makeHtml(backEnd),
+    creative: converter.makeHtml(creative),
   });
 }
 
