@@ -1,0 +1,34 @@
+$xl: 1200px;
+$lg: 992px;
+$md: 768px;
+$sm: 576px;
+
+@mixin desktop {
+  @media screen and (min-width: #{$xl}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (min-width: #{$lg}) {
+    @content;
+  }
+}
+
+@mixin ipad {
+  @media screen and (min-width: #{$md}) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (min-width: #{$sm}) {
+    @content;
+  }
+}
+
+// export
+@include mobile();
+@include ipad();
+@include tablet();
+@include desktop();

@@ -1,4 +1,5 @@
 @import "reset";
+@import "breakpoints";
 @import "variables";
 @import "preloader";
 @import "slider";
@@ -7,6 +8,22 @@ body {
   color: $grey;
   padding: 0 20px 20px;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+h5 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
 .special {
@@ -26,37 +43,50 @@ body {
 }
 
 .introduction-section {
-  .introduction {
-    margin-bottom: 90px;
+  margin-bottom: 50px;
 
-    h2 {
-      font-size: 3rem;
-    }
+  .introduction {
+    font-size: clamp(2rem, calc(3.6vw - 0.1rem), 3rem);
+    margin-bottom: 90px;
   }
 
   .information {
-    h3 {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-
     .details {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 50px;
-
       .detail-section {
-        h5 {
-          font-size: 1.3rem;
-          font-weight: 700;
-          margin-bottom: 10px;
-        }
+        margin-bottom: 10px;
 
         ul li {
           margin-bottom: 5px;
         }
       }
+    }
+  }
+}
+
+@include mobile {
+  .introduction-section {
+    .introduction {
+      padding: 0 20px;
+    }
+
+    .information {
+      .details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 50px;
+
+        .detail-section {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+@include ipad {
+  .introduction-section {
+    .introduction {
+      padding: 0 50px;
     }
   }
 }

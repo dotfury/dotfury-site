@@ -1,8 +1,8 @@
 section.title-section.section-block
   h1.special dotfury
-section.introduction-section.section-block
+section.introduction-section
   .introduction
-    h2 #{about.introduction}
+    p #{about.introduction}
   .information
     h3 General Information
     .details
@@ -12,17 +12,19 @@ section.introduction-section.section-block
         | !{about.backEnd}
       .detail-section
         | !{about.creative}
-
-.display-slider
-  each work in featuredWork 
-    .featured-work
-      a(href=work.link target="_blank")
-        img(src=work.image width="250")
-      div 
-        | !{work.description}
-
-.display-slider
-  each experiment in experiments 
-    .featured-experiment
-      a(href=experiment.link target="_blank")
-        img(src=experiment.image width="250")
+section
+  h3 Work
+  .display-slider
+    each work in featuredWork 
+      .featured-work
+        a(href=work.link target="_blank")
+          img(src=work.image width="250")
+        div 
+          | !{work.description}
+section
+  h3 Experiments
+  .display-slider
+    each experiment in experiments 
+      .featured-experiment
+        a(href=experiment.link target="_blank")
+          img(src=experiment.image width="250")
