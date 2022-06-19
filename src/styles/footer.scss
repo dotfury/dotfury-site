@@ -1,0 +1,29 @@
+footer {
+  padding: 15px;
+
+  .social-links {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 10px;
+
+    a,
+    a:link,
+    a:hover,
+    a:active {
+      color: $grey;
+      font-size: 1.5rem;
+    }
+  }
+
+  .copyright {
+    font-size: 0.75rem;
+    text-align: center;
+  }
+}
+
+@include mobile {
+  footer {
+    padding: 30px 15px;
+  }
+}

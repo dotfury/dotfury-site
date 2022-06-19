@@ -3,11 +3,16 @@
 @import "variables";
 @import "preloader";
 @import "slider";
+@import "footer";
 
 body {
   color: $grey;
   padding: 0 20px 20px;
   font-family: Arial, Helvetica, sans-serif;
+
+  &.loading {
+    overflow: hidden;
+  }
 }
 
 h2 {

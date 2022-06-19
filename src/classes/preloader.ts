@@ -55,6 +55,7 @@ export default class Preloader {
     });
 
     this.animateOut.call(() => {
+      this.body.classList.remove("loading");
       this.body.removeChild(this.element);
     });
   }
