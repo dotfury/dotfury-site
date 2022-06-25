@@ -2,16 +2,20 @@
 const path = require("path");
 const s3 = require("s3-client");
 
-const config = require("../config");
 const { AWS } = s3;
-const PRODUCTION_BRANCH = "production";
+const PRODUCTION_BRANCH = "main";
+
+const isProduction = process.env.NODE_ENV === PRODUCTION_BRANCH;
+const bucket = isProduction
+  ? process.env.PRODUCTION_BUCKET
+  : process.env.STAGING_BUCKET;
 
 function invalidateCloudFront() {
   console.log("Invalidate CloudFront");
   try {
     const cloudfront = new AWS.CloudFront();
     var params = {
-      DistributionId: config.get("aws.cloudFrontDistributionId"),
+      DistributionId: process.env.CLOUD_FRONT_DISTRIBUTION_ID,
       InvalidationBatch: {
         CallerReference: String(new Date().getTime()),
         Paths: {
@@ -37,31 +41,27 @@ function upload(s3Options) {
   const params = {
     localDir: path.resolve(process.cwd(), "dist"),
     s3Params: {
-      // Prefix: "some/remote/dir/",
-      Bucket: config.get("aws.bucket"),
+      Bucket: bucket,
     },
   };
 
   const uploader = client.uploadDir(params);
   uploader.on("error", (err) => {
-    console.error(
-      `Unable to sync with ${config.get("aws.bucket")}:`,
-      err.stack
-    );
+    console.error(`Unable to sync with ${bucket}:`, err.stack);
     process.exit(1);
   });
 
   uploader.on("end", () => {
     console.log("Upload completed");
-    if (config.get("env") === PRODUCTION_BRANCH) {
+    if (isProduction) {
       invalidateCloudFront();
     }
   });
 }
 
 const awsConfig = new AWS.Config({
-  accessKeyId: config.get("aws.accessId"),
-  secretAccessKey: config.get("aws.accessSecret"),
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   region: "ap-northeast-1",
 });
 
