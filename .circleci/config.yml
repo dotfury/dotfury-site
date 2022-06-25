@@ -63,6 +63,7 @@ workflows:
     jobs:
       - dependencies
       - build:
+          context: aws-credentials
           requires:
             - dependencies
       - done:
