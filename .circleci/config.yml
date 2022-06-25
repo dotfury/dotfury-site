@@ -52,7 +52,7 @@ jobs:
       - *attach_workspace
       - run:
           name: Build
-          command: yarn build
+          command: CONTENTFUL_ACCESS_TOKEN=$CONTENTFUL_ACCESS_TOKEN CONTENTFUL_SPACE_ID=$CONTENTFUL_SPACE_ID yarn build
       - run:
           name: Deploying
           command: NODE_ENV=$CIRCLE_BRANCH yarn deploy
