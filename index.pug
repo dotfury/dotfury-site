@@ -13,7 +13,7 @@ section.introduction-section
       .detail-section
         | !{about.creative}
 section
-  h3 Work
+  h3 Projects
   .display-slider
     each work in featuredWork 
       .featured-work
@@ -28,10 +28,19 @@ section
       .featured-experiment
         a(href=experiment.link target="_blank")
           img(src=experiment.image width="250")
+section
+  h3 Code Samples
+  .display-samples
+    each sample in samples
+      div
+        a(href=sample.link target="_blank")
+          | #{sample.title}
 footer
   .social-links
     a(href="https://twitter.com/dotfury" target="_blank")
       i.fa-brands.fa-twitter
+    a(href="https://github.com/dotfury" target="_blank")
+      i.fa-brands.fa-github
     a(href="https://www.linkedin.com/in/charlesmontgomerydev/" target="_blank")
       i.fa-brands.fa-linkedin-in
     a(href="mailto:cmfurious@dotfury.com" target="_blank")

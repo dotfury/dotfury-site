@@ -13,6 +13,7 @@ const BASE_URL = `https://cdn.contentful.com/spaces/${SPACE}/entries?access_toke
 const ABOUT_PAGE_FILE = "./data/about.json";
 const FEATURED_WORK_FILE = "./data/featured.json";
 const EXPERIMENTS_FILE = "./data/experiment.json";
+const SAMPLES_FILE = "./data/samples.json";
 const MEDIAS_FILE = "./data/medias.json";
 
 const converter = new showdown.Converter();
@@ -86,6 +87,18 @@ async function parseExperiments(data) {
   writeToFile(EXPERIMENTS_FILE, content);
 }
 
+async function parseSamples(data) {
+  const cleanedData = sanitizer.sanitizeArray(data.items);
+  const content = cleanedData.map(({ title, link }) => {
+    return {
+      title,
+      link,
+    };
+  });
+
+  writeToFile(SAMPLES_FILE, content);
+}
+
 function getContentType(type) {
   return fetch(`${BASE_URL}${type}`)
     .then((response) => response.json())
@@ -98,10 +111,12 @@ async function getContent() {
   const aboutPage = await getContentType("aboutPage");
   const featuredWork = await getContentType("featuredWork");
   const experiments = await getContentType("creativeProject");
+  const samples = await getContentType("codeSample");
 
   parseAboutSection(aboutPage);
   parseFeaturedWork(featuredWork);
   parseExperiments(experiments);
+  parseSamples(samples);
 
   writeToFile(MEDIAS_FILE, MEDIAS);
 }
