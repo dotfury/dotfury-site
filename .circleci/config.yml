@@ -32,13 +32,6 @@ jobs:
           root: ~/dotfury-site
           paths:
             - ./
-  lint:
-    <<: *docker_defaults
-    steps:
-      - *attach_workspace
-      - run:
-          name: Linting
-          command: yarn lint
 
   done:
     <<: *docker_defaults
@@ -69,15 +62,11 @@ workflows:
   build_and_test:
     jobs:
       - dependencies
-      - lint:
-          requires:
-            - dependencies
       - build:
           requires:
             - dependencies
       - done:
           requires:
-            - lint
             - build
       - deploy:
           context: aws-credentials

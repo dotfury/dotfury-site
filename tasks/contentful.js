@@ -9,12 +9,17 @@ const sanitizer = require("./contentful-sanitizer");
 const SPACE = process.env.CONTENTFUL_SPACE_ID;
 const TOKEN = process.env.CONTENTFUL_ACCESS_TOKEN;
 const BASE_URL = `https://cdn.contentful.com/spaces/${SPACE}/entries?access_token=${TOKEN}&content_type=`;
+const DATA_DIRECTORY = "./data";
 
-const ABOUT_PAGE_FILE = "./data/about.json";
-const FEATURED_WORK_FILE = "./data/featured.json";
-const EXPERIMENTS_FILE = "./data/experiment.json";
-const SAMPLES_FILE = "./data/samples.json";
-const MEDIAS_FILE = "./data/medias.json";
+if (!fs.existsSync(DATA_DIRECTORY)) {
+  fs.mkdirSync(DATA_DIRECTORY);
+}
+
+const ABOUT_PAGE_FILE = `${DATA_DIRECTORY}/about.json`;
+const FEATURED_WORK_FILE = `${DATA_DIRECTORY}/featured.json`;
+const EXPERIMENTS_FILE = `${DATA_DIRECTORY}/experiment.json`;
+const SAMPLES_FILE = `${DATA_DIRECTORY}/samples.json`;
+const MEDIAS_FILE = `${DATA_DIRECTORY}/medias.json`;
 
 const converter = new showdown.Converter();
 
