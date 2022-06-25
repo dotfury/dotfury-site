@@ -15,6 +15,8 @@ if (!fs.existsSync(DATA_DIRECTORY)) {
   fs.mkdirSync(DATA_DIRECTORY);
 }
 
+console.log("URL: ", BASE_URL);
+
 const ABOUT_PAGE_FILE = `${DATA_DIRECTORY}/about.json`;
 const FEATURED_WORK_FILE = `${DATA_DIRECTORY}/featured.json`;
 const EXPERIMENTS_FILE = `${DATA_DIRECTORY}/experiment.json`;
