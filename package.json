@@ -6,9 +6,11 @@
     "dev": "vite",
     "build": "yarn contentful && tsc && vite build",
     "preview": "vite preview",
-    "contentful": "node ./tasks/contentful.js"
+    "contentful": "node ./tasks/contentful.js",
+    "deploy": "node ./tasks/deploy.js"
   },
   "devDependencies": {
+    "s3-client": "^4.4.2",
     "sass": "^1.52.1",
     "showdown": "^2.1.0",
     "typescript": "^4.5.4",
