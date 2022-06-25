@@ -2,7 +2,7 @@ version: 2
 
 docker_defaults: &docker_defaults
   docker:
-    - image: circleci/node:8-stretch-browsers
+    - image: circleci/node:12-stretch-browsers
   working_directory: ~/dotfury-site
   environment:
     CHROME_BIN: "/usr/bin/google-chrome"
