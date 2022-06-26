@@ -76,5 +76,5 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - staging
                 - main
