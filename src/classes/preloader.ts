@@ -5,6 +5,8 @@ import medias from "../../data/medias.json";
 export default class Preloader {
   private body: HTMLElement;
   private element: HTMLElement;
+  private titleCover: HTMLElement;
+  private percentCount: HTMLElement;
   private medias: string[];
   private loadedMediaCount: number;
   private mediaCount: number;
@@ -13,6 +15,8 @@ export default class Preloader {
   constructor(element: string) {
     this.body = document.body;
     this.element = document.querySelector(element)!;
+    this.titleCover = document.querySelector(".title-cover")!;
+    this.percentCount = document.querySelector(".percent-count")!;
     this.medias = medias;
     this.mediaCount = this.medias.length;
     this.loadedMediaCount = 0;
@@ -38,6 +42,8 @@ export default class Preloader {
   onMediaLoaded() {
     this.loadedMediaCount += 1;
     const percent = Math.round((this.loadedMediaCount / this.mediaCount) * 100);
+    GSAP.to(this.titleCover, { translateY: `-${percent}%`, duration: 0.2 });
+    this.percentCount.innerHTML = `${percent}%`;
 
     if (percent >= 100) {
       this.onLoadCompleted();
