@@ -3,7 +3,7 @@
   background-color: $grey;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 70px;
   justify-content: center;
   position: fixed;
   left: 0;
@@ -11,30 +11,9 @@
   height: 100%;
   width: 100%;
 
-  .title {
+  .percent-count {
     color: $pink;
-    font-size: 5rem;
-    position: relative;
-
-    .title-cover {
-      background-color: $grey;
-      position: absolute;
-      height: 150%;
-      width: 100%;
-      top: -5px;
-      left: 0;
-      transition: all 0.2s;
-      will-change: transform;
-    }
-
-    .percent-count {
-      color: $pink;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 0.65rem;
-      position: absolute;
-      top: 140%;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.65rem;
   }
 }
