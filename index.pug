@@ -28,7 +28,7 @@ section
     each work in featuredWork 
       .featured-work
         a(href=work.link target="_blank")
-          img(src=work.image width="250")
+          img(src=work.image)
         div 
           | !{work.description}
 section
@@ -37,7 +37,7 @@ section
     each experiment in experiments 
       .featured-experiment
         a(href=experiment.link target="_blank")
-          img(src=experiment.image width="250")
+          img(src=experiment.image)
 section
   h3 Code Samples
   .display-samples
