@@ -25,13 +25,14 @@
           | !{about.creative}
   section
     h3 Projects
-    .display-slider
-      each work in featuredWork 
-        .featured-work
-          a(href=work.link target="_blank")
-            img(src=work.image)
-          div 
-            | !{work.description}
+    ul#cards-container
+      each work, i in featuredWork 
+        li(class=`card_${i + 1} card featured-work`)
+          .card-content
+            a(href=work.link target="_blank")
+              img(src=work.image)
+            div 
+              | !{work.description}
   section
     h3 Experiments
     .display-slider

@@ -1,0 +1,103 @@
+:root {
+  --card-margin: 4vw;
+  --card-top-offset: 1em;
+  --numcards: 4;
+  --outline-width: 0px;
+}
+
+.card_1 {
+  --index: 1;
+}
+.card_2 {
+  --index: 2;
+}
+.card_3 {
+  --index: 3;
+}
+.card_4 {
+  --index: 4;
+}
+
+#cards-container {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(var(--numcards), 1fr);
+  gap: var(--card-margin);
+  padding-bottom: calc(
+    var(--numcards) * var(--card-top-offset)
+  ); /* Make place at bottom, as items will slide to that position*/
+  margin-bottom: var(
+    --card-margin
+  ); /* Don't include the --card-margin in padding, as that will affect the scroll-timeline*/
+}
+
+@supports (animation-timeline: works) {
+  @scroll-timeline cards-element-scrolls-in-body {
+    source: selector(body);
+    scroll-offsets:
+			/* Start when the start edge touches the top of the scrollport */ selector(
+          #cards-container
+        )
+        start 1,
+      /* End when the start edge touches the start of the scrollport */
+        selector(#cards-container) start 0;
+    start: selector(#cards-container) start 1; /* Start when the start edge touches the top of the scrollport */
+    end: selector(#cards-container) start 0; /* End when the start edge touches the start of the scrollport */
+    time-range: 4s;
+  }
+
+  .card {
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    padding-top: 10px;
+    --index0: calc(var(--index) - 1); /* 0-based index */
+    --reverse-index: calc(var(--numcards) - var(--index0)); /* reverse index */
+    --reverse-index0: calc(
+      var(--reverse-index) - 1
+    ); /* 0-based reverse index */
+  }
+
+  @keyframes scale {
+    to {
+      transform: scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
+    }
+  }
+}
+
+.card-content {
+  background-color: white;
+  border: 1px solid $grey;
+  border-radius: 5px;
+  gap: 10px;
+  padding: 10px;
+  width: 90%;
+  max-width: 800px;
+  transform-origin: 50% 0%;
+  will-change: transform;
+
+  --duration: calc(var(--reverse-index0) * 1s);
+  --delay: calc(var(--index0) * 1s);
+
+  animation: var(--duration) linear scale var(--delay) forwards;
+  animation-timeline: cards-element-scrolls-in-body;
+
+  img {
+    display: block;
+    margin: 0 auto 5px;
+    width: 250px;
+  }
+}
+
+@include mobile {
+  .card-content {
+    width: 90%;
+    max-width: 800px;
+
+    img {
+      width: 350px;
+    }
+  }
+}
