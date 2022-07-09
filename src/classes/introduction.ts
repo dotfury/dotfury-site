@@ -12,7 +12,7 @@ export default class Introduction {
     GSAP.set(this.lines, { opacity: 0 });
 
     const observerOptions = {
-      rootMargin: "100px",
+      rootMargin: "0px",
       threshold: 1.0,
     };
     this.observer = new window.IntersectionObserver((entries) => {
