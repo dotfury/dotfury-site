@@ -770,6 +770,11 @@ showdown@^2.1.0:
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.2.tgz#adbc361d9c62df380125e7f161f71c826f1e490c"
   integrity sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==
 
+split-type@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/split-type/-/split-type-0.3.1.tgz#0a6269a7cc927100c48a73b61491a74b2d26a571"
+  integrity sha512-GPmSaAMmn9FhpfAypLFnmslx4QFqsW+u4bP47aCphQ+DwAr0ejxoda3XVoI6+CeZeUNlsQC/ftGYq4IojuAkoQ==
+
 streamsink@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/streamsink/-/streamsink-1.2.0.tgz#efafee9f1e22d3591ed7de3dcaa95c3f5e79f73c"
