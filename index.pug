@@ -33,6 +33,8 @@
               img(src=work.image)
             div 
               | !{work.description}
+              a(class="text-link" href=work.link target="_blank")
+                | view project
   section
     h3 Experiments
     .display-slider
@@ -45,7 +47,7 @@
     .display-samples
       each sample in samples
         div
-          a(href=sample.link target="_blank")
+          a(class="text-link" href=sample.link target="_blank")
             | #{sample.title}
   footer
     .social-links

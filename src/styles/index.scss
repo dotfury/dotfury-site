@@ -38,6 +38,17 @@ h5 {
   margin-bottom: 10px;
 }
 
+a.text-link {
+  border-bottom: 1px dashed $grey;
+  padding-bottom: 1px;
+  text-transform: lowercase;
+  transition: all 0.5s;
+
+  &:hover {
+    border-color: $pink;
+  }
+}
+
 .special {
   font-family: Pacifico, cursive;
   font-size: 5rem;
@@ -81,17 +92,6 @@ h5 {
   gap: 10px;
   margin-bottom: 30px;
   max-width: 600px;
-
-  a {
-    border-bottom: 1px dashed $grey;
-    padding-bottom: 1px;
-    text-transform: lowercase;
-    transition: all 0.5s;
-
-    &:hover {
-      border-color: $pink;
-    }
-  }
 }
 
 @include mobile {
