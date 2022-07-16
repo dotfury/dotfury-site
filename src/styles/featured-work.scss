@@ -1,0 +1,34 @@
+.featured-work {
+  min-width: 300px;
+  font-size: 1rem;
+
+  a {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  h5 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  p {
+    margin-bottom: 5px;
+  }
+
+  ul li {
+    font-size: 0.75rem;
+    font-weight: 300;
+    margin-bottom: 2px;
+  }
+}
+
+@include mobile {
+  .featured-work {
+    display: flex;
+    gap: 10px;
+    min-width: 500px;
+    font-size: 0.875rem;
+  }
+}

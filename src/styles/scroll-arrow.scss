@@ -1,0 +1,33 @@
+.scroll-arrow {
+  border: solid $grey;
+  border-width: 0 1px 1px 0;
+  display: inline-block;
+  padding: 3px;
+  position: absolute;
+  left: 50%;
+  bottom: 100px;
+  height: 15px;
+  width: 15px;
+  transform: rotate(45deg) translateX(-50%);
+  -webkit-animation: 1s linear 0s infinite alternate fade;
+  animation: 1s linear 0s infinite alternate fade;
+}
+
+@-webkit-keyframes fade {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

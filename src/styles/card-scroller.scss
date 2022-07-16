@@ -1,0 +1,111 @@
+:root {
+  --card-margin: 4vw;
+  --card-top-offset: 1em;
+  --numcards: 5;
+  --outline-width: 0px;
+}
+
+// scroll-timeline not supported
+#cards-container {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+.card-content {
+  background-color: white;
+  border: 1px solid $grey;
+  border-radius: 5px;
+  line-height: 1.5;
+  gap: 10px;
+  padding: 10px;
+  width: 90%;
+  max-width: 800px;
+
+  img {
+    display: block;
+    margin: 0 auto 5px;
+    width: 300px;
+  }
+}
+
+@supports (animation-timeline: works) {
+  .card_1 {
+    --index: 1;
+  }
+  .card_2 {
+    --index: 2;
+  }
+  .card_3 {
+    --index: 3;
+  }
+  .card_4 {
+    --index: 4;
+  }
+  .card_5 {
+    --index: 5;
+  }
+
+  @scroll-timeline cards-element-scrolls-in-body {
+    source: selector(body);
+    scroll-offsets: selector(#cards-container) start 1,
+      selector(#cards-container) start 0;
+    start: selector(#cards-container) start 1;
+    end: selector(#cards-container) start 0;
+    time-range: 4s;
+  }
+
+  #cards-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(var(--numcards), 1fr);
+    gap: var(--card-margin);
+    list-style: none;
+    margin-bottom: var(--card-margin);
+    padding-bottom: calc(var(--numcards) * var(--card-top-offset));
+  }
+
+  .card {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+    position: sticky;
+    top: 0;
+
+    --index0: calc(var(--index) - 1);
+    --reverse-index: calc(var(--numcards) - var(--index0));
+    --reverse-index0: calc(var(--reverse-index) - 1);
+  }
+
+  .card-content {
+    animation: var(--duration) linear scale var(--delay) forwards;
+    animation-timeline: cards-element-scrolls-in-body;
+    transform-origin: 50% 0%;
+    will-change: transform;
+
+    --duration: calc(var(--reverse-index0) * 1s);
+    --delay: calc(var(--index0) * 1s);
+  }
+
+  @keyframes scale {
+    to {
+      transform: scale(calc(1.1 - calc(0.1 * var(--reverse-index))));
+    }
+  }
+}
+
+@include mobile {
+  .card-content {
+    align-items: center;
+    display: flex;
+    max-width: 800px;
+    width: 90%;
+
+    img {
+      width: 450px;
+    }
+  }
+}
