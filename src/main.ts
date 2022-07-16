@@ -1,14 +1,20 @@
 import Preloader from "./classes/preloader";
+import Title from "./classes/title";
 import Introduction from "./classes/introduction";
 
 import "./styles/index.scss";
 
-// preload
-const preloader = new Preloader(".preloader");
-preloader.start();
+const initPage = () => {
+  // title
+  new Title();
 
-// introduction
-new Introduction();
+  // introduction
+  new Introduction();
+};
+
+// preload
+const preloader = new Preloader(initPage);
+preloader.start();
 
 // copyright
 const footer = document.querySelector("footer");

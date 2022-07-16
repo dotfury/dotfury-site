@@ -5,6 +5,7 @@
 @import "preloader-cube";
 @import "slider";
 @import "card-scroller";
+@import "scroll-arrow";
 @import "footer";
 
 body {
@@ -57,7 +58,9 @@ a.text-link {
 .title-section {
   align-items: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  position: relative;
 }
 
 .section-block {
