@@ -24,26 +24,23 @@
           | !{about.backEnd}
         .detail-section
           | !{about.creative}
-  section
+  section.works-section
     h3 Projects
-    ul#cards-container
-      each work, i in featuredWork 
-        li(class=`card_${i + 1} card featured-work`)
-          .card-content
+    .featured-work-container
+      each work in featuredWork 
+          .featured-work
             a(href=work.link target="_blank")
               img(src=work.image)
-            div 
-              | !{work.description}
-              a(class="text-link" href=work.link target="_blank")
-                | view project
-  section
+              span.featured-work-title 
+                | !{work.title}
+  section.experiments-section
     h3 Experiments
     .display-slider
       each experiment in experiments 
         .featured-experiment
           a(href=experiment.link target="_blank")
             img(src=experiment.image)
-  section
+  section.samples-section
     h3 Code Samples
     .display-samples
       each sample in samples
