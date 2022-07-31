@@ -1,11 +1,13 @@
+// foundations
 @import "reset";
 @import "breakpoints";
 @import "variables";
+// visuals
 @import "preloader";
 @import "preloader-cube";
 @import "slider";
-@import "card-scroller";
 @import "scroll-arrow";
+@import "featured-work";
 @import "footer";
 
 body {
@@ -89,11 +91,16 @@ a.text-link {
   }
 }
 
+.works-section,
+.experiments-section,
+.samples-section {
+  margin-bottom: 50px;
+}
+
 .display-samples {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 30px;
   max-width: 600px;
 }
 
