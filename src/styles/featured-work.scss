@@ -10,15 +10,42 @@
     }
 
     .featured-work-title {
+      --border-length: 1px;
+      --border-depth: 15px;
+      --_s: calc(var(--border-depth) + var(--border-length));
       background-color: $grey;
-      border: 1px dashed $pink;
+      border: dashed $pink;
+      border-bottom-style: solid;
+      border-width: var(--border-length) var(--border-length) var(--_s) var(--_s);
       color: $white;
+      clip-path: polygon(
+        var(--border-depth) 0%,
+        var(--border-depth) 0%,
+        100% 0%,
+        100% calc(100% - var(--border-depth)),
+        100% calc(100% - var(--border-depth)),
+        var(--border-depth) calc(100% - var(--border-depth))
+      );
       font-size: 1rem;
       font-weight: 700;
+      transform: translate(calc(var(--border-depth) / -1), var(--border-depth));
+      transition: 0.3s;
       padding: 5px;
       position: absolute;
       left: 2px;
       bottom: 5px;
+    }
+
+    &:hover .featured-work-title {
+      clip-path: polygon(
+        0% var(--border-depth),
+        var(--border-depth) 0%,
+        100% 0%,
+        100% calc(100% - var(--border-depth)),
+        calc(100% - var(--border-depth)) 100%,
+        0% 100%
+      );
+      transform: translate(0, 0);
     }
   }
 }
