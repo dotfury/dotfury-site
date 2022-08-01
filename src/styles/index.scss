@@ -5,7 +5,6 @@
 // visuals
 @import "preloader";
 @import "preloader-cube";
-@import "slider";
 @import "scroll-arrow";
 @import "featured-work";
 @import "footer";
@@ -97,6 +96,7 @@ a.text-link {
   margin-bottom: 50px;
 }
 
+.display-experiments,
 .display-samples {
   display: flex;
   flex-wrap: wrap;

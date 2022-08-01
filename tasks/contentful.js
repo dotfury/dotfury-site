@@ -89,14 +89,10 @@ async function parseFeaturedWork(data) {
 
 async function parseExperiments(data) {
   const cleanedData = sanitizer.sanitizeArray(data.items);
-  const content = cleanedData.map(({ title, link, image }) => {
-    const imageId = image.sys.id;
-    const imageContent = assetStore.find((m) => m.id === imageId);
-
+  const content = cleanedData.map(({ title, link }) => {
     return {
       title,
       link,
-      image: imageContent.url,
     };
   });
 

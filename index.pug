@@ -35,11 +35,11 @@
                 | !{work.title}
   section.experiments-section
     h3 Experiments
-    .display-slider
+    .display-experiments
       each experiment in experiments 
-        .featured-experiment
-          a(href=experiment.link target="_blank")
-            img(src=experiment.image)
+        div
+          a(class="text-link" href=experiment.link target="_blank")
+            | #{experiment.title}
   section.samples-section
     h3 Code Samples
     .display-samples
