@@ -5,14 +5,12 @@
 // visuals
 @import "preloader";
 @import "preloader-cube";
+@import "typography";
 @import "scroll-arrow";
 @import "featured-work";
 @import "footer";
 
 body {
-  color: $grey;
-  font-family: Arial, Helvetica, sans-serif;
-
   &.loading {
     overflow: hidden;
   }
@@ -24,22 +22,6 @@ body {
   padding: 0 20px 20px;
 }
 
-h2 {
-  font-size: 3rem;
-}
-
-h3 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-}
-
-h5 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
 a.text-link {
   border-bottom: 1px dashed $grey;
   padding-bottom: 1px;
@@ -49,11 +31,6 @@ a.text-link {
   &:hover {
     border-color: $pink;
   }
-}
-
-.special {
-  font-family: Pacifico, cursive;
-  font-size: 5rem;
 }
 
 .title-section {
@@ -73,8 +50,12 @@ a.text-link {
   margin-bottom: 50px;
 
   .introduction {
-    font-size: clamp(2rem, calc(3.6vw - 0.1rem), 3rem);
     margin-bottom: 90px;
+
+    .introduction-text {
+      --fluid-type-min: 2rem;
+      --fluid-type-max: 3rem;
+    }
   }
 
   .information {

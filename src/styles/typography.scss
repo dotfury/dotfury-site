@@ -1,0 +1,48 @@
+body {
+  color: $grey;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+h1,
+h2,
+h3,
+p {
+  font-size: clamp(
+    var(--fluid-type-min, 1rem),
+    calc(1rem + var(--fluid-type-target, 3vw)),
+    var(--fluid-type-max, 1.3rem)
+  );
+}
+
+h1 {
+  --fluid-type-min: 3rem;
+  --fluid-type-max: 8rem;
+  --fluid-type-target: 5vw;
+}
+
+h2 {
+  --fluid-type-min: 1.8rem;
+  --fluid-type-max: 2.5rem;
+}
+
+h3 {
+  --fluid-type-min: 1.5rem;
+  --fluid-type-max: 2rem;
+}
+
+p {
+  line-height: 1.2;
+  max-width: 60ch;
+}
+
+.special {
+  font-family: Pacifico, cursive;
+}
