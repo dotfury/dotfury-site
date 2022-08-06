@@ -1,0 +1,15 @@
+.featured-work-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size, 16rem), 1fr));
+  grid-gap: 0.5rem;
+
+  .featured-work {
+    position: relative;
+  }
+}
+
+@include mobile {
+  .featured-work-container {
+    --auto-grid-min-size: 350px;
+  }
+}

@@ -1,18 +1,20 @@
-// foundations
-@import "reset";
-@import "breakpoints";
-@import "variables";
-// visuals
-@import "preloader";
-@import "preloader-cube";
-@import "scroll-arrow";
-@import "featured-work";
-@import "footer";
+// base
+@import "base/reset";
+@import "base/breakpoints";
+@import "base/variables";
+@import "base/typography";
+// blocks
+@import "blocks/preloader";
+@import "blocks/preloader-cube";
+@import "blocks/title";
+@import "blocks/scroll-arrow";
+@import "blocks/introduction";
+@import "blocks/featured-work";
+@import "blocks/featured-work-title";
+@import "blocks/text-link";
+@import "blocks/footer";
 
 body {
-  color: $grey;
-  font-family: Arial, Helvetica, sans-serif;
-
   &.loading {
     overflow: hidden;
   }
@@ -24,76 +26,13 @@ body {
   padding: 0 20px 20px;
 }
 
-h2 {
-  font-size: 3rem;
-}
-
-h3 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-}
-
-h5 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-a.text-link {
-  border-bottom: 1px dashed $grey;
-  padding-bottom: 1px;
-  text-transform: lowercase;
-  transition: all 0.5s;
-
-  &:hover {
-    border-color: $pink;
-  }
-}
-
-.special {
-  font-family: Pacifico, cursive;
-  font-size: 5rem;
-}
-
-.title-section {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
+.flow > * + * {
+  margin-top: 50px;
 }
 
 .section-block {
   min-height: 100vh;
   width: 100%;
-}
-
-.introduction-section {
-  margin-bottom: 50px;
-
-  .introduction {
-    font-size: clamp(2rem, calc(3.6vw - 0.1rem), 3rem);
-    margin-bottom: 90px;
-  }
-
-  .information {
-    .details {
-      .detail-section {
-        margin-bottom: 10px;
-
-        ul li {
-          margin-bottom: 5px;
-        }
-      }
-    }
-  }
-}
-
-.works-section,
-.experiments-section,
-.samples-section {
-  margin-bottom: 50px;
 }
 
 .display-experiments,
@@ -102,32 +41,4 @@ a.text-link {
   flex-wrap: wrap;
   gap: 10px;
   max-width: 600px;
-}
-
-@include mobile {
-  .introduction-section {
-    .introduction {
-      padding: 0 20px;
-    }
-
-    .information {
-      .details {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 50px;
-
-        .detail-section {
-          margin-bottom: 0;
-        }
-      }
-    }
-  }
-}
-
-@include ipad {
-  .introduction-section {
-    .introduction {
-      padding: 0 50px;
-    }
-  }
 }
