@@ -1,0 +1,10 @@
+a.text-link {
+  border-bottom: 1px dashed $grey;
+  padding-bottom: 1px;
+  text-transform: lowercase;
+  transition: all 0.5s;
+
+  &:hover {
+    border-color: $pink;
+  }
+}

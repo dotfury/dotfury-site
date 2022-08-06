@@ -8,15 +8,15 @@
       .face.top 
       .face.bottom 
   .percent-count
-.page-wrapper
+.page-wrapper.flow
   section.title-section.section-block
     h1.special dotfury
     .scroll-arrow
   section.introduction-section
     .introduction
-      p #{about.introduction}
+      p.introduction-text #{about.introduction}
     .information
-      h3 General Information
+      h2 General Information
       .details
         .detail-section
           | !{about.frontEnd}
@@ -25,7 +25,7 @@
         .detail-section
           | !{about.creative}
   section.works-section
-    h3 Projects
+    h2 Projects
     .featured-work-container
       each work in featuredWork 
           .featured-work
@@ -34,14 +34,14 @@
               span.featured-work-title 
                 | !{work.title}
   section.experiments-section
-    h3 Experiments
+    h2 Experiments
     .display-experiments
       each experiment in experiments 
         div
           a(class="text-link" href=experiment.link target="_blank")
             | #{experiment.title}
   section.samples-section
-    h3 Code Samples
+    h2 Code Samples
     .display-samples
       each sample in samples
         div
