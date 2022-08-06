@@ -6,7 +6,10 @@ body {
 
 h1,
 h2,
-h3 {
+h3,
+h4,
+h5,
+h6 {
   line-height: 1.1;
   font-weight: 700;
 }
@@ -14,12 +17,27 @@ h3 {
 h1,
 h2,
 h3,
+h4,
+h5,
+h6,
 p {
   font-size: clamp(
     var(--fluid-type-min, 1rem),
     calc(1rem + var(--fluid-type-target, 3vw)),
     var(--fluid-type-max, 1.3rem)
   );
+}
+
+h1,
+h2,
+h3 {
+  margin-bottom: 20px;
+}
+
+h4,
+h5,
+h6 {
+  margin-bottom: 10px;
 }
 
 h1 {
@@ -38,6 +56,11 @@ h3 {
   --fluid-type-max: 2rem;
 }
 
+h4 {
+  --fluid-type-min: 1.2rem;
+  --fluid-type-max: 1.4rem;
+}
+
 p {
   line-height: 1.2;
   max-width: 60ch;
@@ -45,4 +68,5 @@ p {
 
 .special {
   font-family: Pacifico, cursive;
+  margin-bottom: 0;
 }

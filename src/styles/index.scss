@@ -1,14 +1,17 @@
-// foundations
-@import "reset";
-@import "breakpoints";
-@import "variables";
-// visuals
-@import "preloader";
-@import "preloader-cube";
-@import "typography";
-@import "scroll-arrow";
-@import "featured-work";
-@import "footer";
+// base
+@import "base/reset";
+@import "base/breakpoints";
+@import "base/variables";
+@import "base/typography";
+// blocks
+@import "blocks/preloader";
+@import "blocks/preloader-cube";
+@import "blocks/title";
+@import "blocks/scroll-arrow";
+@import "blocks/introduction";
+@import "blocks/featured-work";
+@import "blocks/text-link";
+@import "blocks/footer";
 
 body {
   &.loading {
@@ -22,59 +25,13 @@ body {
   padding: 0 20px 20px;
 }
 
-a.text-link {
-  border-bottom: 1px dashed $grey;
-  padding-bottom: 1px;
-  text-transform: lowercase;
-  transition: all 0.5s;
-
-  &:hover {
-    border-color: $pink;
-  }
-}
-
-.title-section {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
+.flow > * + * {
+  margin-top: 50px;
 }
 
 .section-block {
   min-height: 100vh;
   width: 100%;
-}
-
-.introduction-section {
-  margin-bottom: 50px;
-
-  .introduction {
-    margin-bottom: 90px;
-
-    .introduction-text {
-      --fluid-type-min: 2rem;
-      --fluid-type-max: 3rem;
-    }
-  }
-
-  .information {
-    .details {
-      .detail-section {
-        margin-bottom: 10px;
-
-        ul li {
-          margin-bottom: 5px;
-        }
-      }
-    }
-  }
-}
-
-.works-section,
-.experiments-section,
-.samples-section {
-  margin-bottom: 50px;
 }
 
 .display-experiments,
@@ -83,32 +40,4 @@ a.text-link {
   flex-wrap: wrap;
   gap: 10px;
   max-width: 600px;
-}
-
-@include mobile {
-  .introduction-section {
-    .introduction {
-      padding: 0 20px;
-    }
-
-    .information {
-      .details {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 50px;
-
-        .detail-section {
-          margin-bottom: 0;
-        }
-      }
-    }
-  }
-}
-
-@include ipad {
-  .introduction-section {
-    .introduction {
-      padding: 0 50px;
-    }
-  }
 }
