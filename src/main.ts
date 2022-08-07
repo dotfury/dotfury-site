@@ -1,6 +1,7 @@
 import Preloader from "./classes/preloader";
 import Title from "./classes/title";
 import Introduction from "./classes/introduction";
+import GlScene from "./classes/glScene";
 
 import "./styles/index.scss";
 
@@ -10,6 +11,9 @@ const initPage = () => {
 
   // introduction
   new Introduction();
+
+  // GL
+  new GlScene();
 };
 
 // preload
