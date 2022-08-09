@@ -1,8 +1,8 @@
 import * as THREE from "three";
 
 // load glsl?
-// import vertex from "../glsl/vertex.glsl";
-// import fragment from "../glsl/fragment.glsl";
+import vertex from "../glsl/vertex.glsl?raw";
+import fragment from "../glsl/fragment.glsl?raw";
 
 export default class GlScene {
   private sizes;
@@ -16,6 +16,8 @@ export default class GlScene {
 
   constructor() {
     console.log(THREE);
+    console.log(vertex);
+    console.log(fragment);
     this.sizes = {
       width: window.innerWidth,
       height: window.innerHeight,
@@ -73,6 +75,8 @@ export default class GlScene {
   addObjects() {
     const geometry = new THREE.PlaneGeometry(0.4, 0.6, 16, 16);
     const material = new THREE.ShaderMaterial({
+      vertexShader: vertex,
+      fragmentShader: fragment,
       uniforms: {
         uTime: { value: 0.0 },
       },
