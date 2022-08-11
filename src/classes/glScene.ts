@@ -1,27 +1,24 @@
 import * as THREE from "three";
 
-// load glsl?
-import vertex from "../glsl/vertex.glsl?raw";
-import fragment from "../glsl/fragment.glsl?raw";
+import Media from './media';
 
 export default class GlScene {
-  private sizes;
-  private mouse;
-  private canvas;
-  private renderer;
-  private camera;
-  private scene;
-  private clock;
-  private mesh: any;
+  sizes;
+  viewport;
+  mouse;
+  canvas;
+  renderer;
+  camera;
+  scene;
+  clock;
+  medias: any[];
 
   constructor() {
-    console.log(THREE);
-    console.log(vertex);
-    console.log(fragment);
     this.sizes = {
       width: window.innerWidth,
       height: window.innerHeight,
     };
+    this.viewport = {};
     this.mouse = {
       x: 0,
       y: 0,
@@ -39,9 +36,12 @@ export default class GlScene {
 
     this.clock = new THREE.Clock();
 
+    this.medias = [];
+
     this.setupResize();
     this.setupMouseEvents();
-    this.addObjects();
+    // this.addObjects();
+    this.createMedias();
     this.render();
   }
 
@@ -70,29 +70,62 @@ export default class GlScene {
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(this.sizes.width, this.sizes.height);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const fov = this.camera.fov * (Math.PI / 180);
+    const height = 2 * Math.tan(fov / 2) * this.camera.position.z;
+    const width = height * this.camera.aspect;
+
+    this.viewport = {
+      height,
+      width
+    };
+
+    if (this.medias.length > 0) {
+      this.medias.forEach(media => media.onResize({
+        sizes: this.sizes,
+        viewport: this.viewport
+      }));
+    }
   }
 
   addObjects() {
-    const geometry = new THREE.PlaneGeometry(0.4, 0.6, 16, 16);
-    const material = new THREE.ShaderMaterial({
-      vertexShader: vertex,
-      fragmentShader: fragment,
-      uniforms: {
-        uTime: { value: 0.0 },
-      },
-      wireframe: true,
+    // const planeMaterial = new THREE.ShaderMaterial({
+    //   vertexShader: vertex,
+    //   fragmentShader: fragment,
+    // });
+
+    // const mesh = new THREE.Mesh(planeGeometry, planeMaterial);
+    // this.mesh = mesh;
+    // this.scene.add(this.mesh);
+  }
+
+  createMedias() {
+    const planeGeometry = new THREE.PlaneGeometry(1, 1, 32, 32);
+    const mediaElements = document.querySelectorAll('.featured-work-image');
+    this.medias = Array.from(mediaElements).map(element => {
+      const media = new Media({
+        element,
+        geometry: planeGeometry,
+        scene: this.scene,
+        sizes: this.sizes,
+        viewport: this.viewport
+      });
+
+      return media;
     });
-    const mesh = new THREE.Mesh(geometry, material);
-    this.mesh = mesh;
-    this.scene.add(this.mesh);
   }
 
   render() {
     const elapsedTime = this.clock.getElapsedTime();
 
-    this.mesh.material.uniforms.uTime.value = elapsedTime;
+    // this.mesh.material.uniforms.uTime.value = elapsedTime;
 
     this.renderer.render(this.scene, this.camera);
+
+    if (this.medias.length > 0) {
+      this.medias.forEach(media => media.update())
+    }
+
     window.requestAnimationFrame(this.render.bind(this));
   }
 }

@@ -8,6 +8,7 @@
       .face.top 
       .face.bottom 
   .percent-count
+canvas.webgl
 .page-wrapper.flow
   section.title-section.section-block
     h1.special dotfury
@@ -30,7 +31,7 @@
       each work in featuredWork 
           .featured-work
             a(href=work.link target="_blank")
-              img(src=work.image)
+              img(class="featured-work-image" src=work.image)
               span.featured-work-title 
                 | !{work.title}
   section.experiments-section
