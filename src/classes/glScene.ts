@@ -18,7 +18,7 @@ export default class GlScene {
       width: window.innerWidth,
       height: window.innerHeight,
     };
-    this.viewport = {};
+    this.viewport = {width: window.innerWidth, height: window.innerHeight};
     this.mouse = {
       x: 0,
       y: 0,
@@ -113,6 +113,7 @@ export default class GlScene {
 
       return media;
     });
+    console.log(this.medias);
   }
 
   render() {
@@ -122,9 +123,9 @@ export default class GlScene {
 
     this.renderer.render(this.scene, this.camera);
 
-    if (this.medias.length > 0) {
-      this.medias.forEach(media => media.update())
-    }
+    // if (this.medias.length > 0) {
+    //   this.medias.forEach(media => media.update())
+    // }
 
     window.requestAnimationFrame(this.render.bind(this));
   }

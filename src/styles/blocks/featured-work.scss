@@ -5,6 +5,10 @@
 
   .featured-work {
     position: relative;
+
+    .featured-work-image {
+      visibility: hidden;
+    }
   }
 }
 
