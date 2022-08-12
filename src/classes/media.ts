@@ -43,7 +43,7 @@ export default class Media {
     this.createMesh();
     this.createBounds();
  
-    // this.onResize(null);
+    this.onResize({ sizes, viewport });
   }
 
   createMesh() {
@@ -53,7 +53,8 @@ export default class Media {
       uniforms: {
         uTexture: {value: TEXTURE_LOADER.load(this.element.src)},
         uScreenSizes: { value: [0, 0] },
-        uImageSizes: { value: [0, 0] }
+        uImageSizes: { value: [0, 0] },
+        uTime: { value: 0 }
       },
       transparent: true
     });
@@ -63,7 +64,15 @@ export default class Media {
   }
 
   createBounds() {
-    this.bounds = this.element.getBoundingClientRect();
+    const rect = this.element.getBoundingClientRect();
+
+    this.bounds = {
+      ...rect,
+      left: rect.left,
+      top: rect.top + window.scrollY,
+      width: rect.width,
+      height: rect.height
+    };
 
     this.updateScale();
     this.updateX();
@@ -79,20 +88,29 @@ export default class Media {
 
   updateX(x = 0) {
     if (this.mesh && this.bounds) {
-      this.mesh.position.x = -(this.viewport.width / 2) + (this.mesh.scale.x / 2) + ((this.bounds.left - x) / this.sizes.width) * this.viewport.width;
+      this.mesh.position.x = -(this.viewport.width / 2) + (this.mesh.scale.x / 2);
+      this.mesh.position.x += + ((this.bounds.left + x) / this.sizes.width) * this.viewport.width;
     }
   }
 
   updateY(y = 0) {
     if (this.mesh && this.bounds) {
-      this.mesh.position.y = (this.viewport.height / 2) + (this.mesh.scale.y / 2) + ((this.bounds.top - y) / this.sizes.height) * this.viewport.height;
+      this.mesh.position.y = (this.viewport.height / 2) - (this.mesh.scale.y / 2);
+      this.mesh.position.y -= ((this.bounds.top - y) / this.sizes.height) * this.viewport.height;
     }
   }
 
-  update(y: number) {
+  updateWave(time: number) {
+    if(this.mesh) {
+      (this.mesh.material as THREE.ShaderMaterial).uniforms.uTime.value = time;
+    }
+  }
+
+  update(y: number, time: number) {
     this.updateScale();
     this.updateX();
     this.updateY(y);
+    // this.updateWave(time);
   }
 
   onResize(sizesObj: any) {

@@ -18,7 +18,6 @@ export default class GlScene {
       width: window.innerWidth,
       height: window.innerHeight,
     };
-    this.viewport = {width: window.innerWidth, height: window.innerHeight};
     this.mouse = {
       x: 0,
       y: 0,
@@ -34,13 +33,21 @@ export default class GlScene {
     this.camera.position.z = 1;
     this.scene = new THREE.Scene();
 
+    const fov = this.camera.fov * (Math.PI / 180);
+    const height = 2 * Math.tan(fov / 2) * this.camera.position.z;
+    const width = height * this.camera.aspect;
+
+    this.viewport = {
+      height,
+      width
+    };
+
     this.clock = new THREE.Clock();
 
     this.medias = [];
 
     this.setupResize();
     this.setupMouseEvents();
-    // this.addObjects();
     this.createMedias();
     this.render();
   }
@@ -88,17 +95,6 @@ export default class GlScene {
     }
   }
 
-  addObjects() {
-    // const planeMaterial = new THREE.ShaderMaterial({
-    //   vertexShader: vertex,
-    //   fragmentShader: fragment,
-    // });
-
-    // const mesh = new THREE.Mesh(planeGeometry, planeMaterial);
-    // this.mesh = mesh;
-    // this.scene.add(this.mesh);
-  }
-
   createMedias() {
     const planeGeometry = new THREE.PlaneGeometry(1, 1, 32, 32);
     const mediaElements = document.querySelectorAll('.featured-work-image');
@@ -113,7 +109,6 @@ export default class GlScene {
 
       return media;
     });
-    console.log(this.medias);
   }
 
   render() {
@@ -123,9 +118,9 @@ export default class GlScene {
 
     this.renderer.render(this.scene, this.camera);
 
-    // if (this.medias.length > 0) {
-    //   this.medias.forEach(media => media.update())
-    // }
+    if (this.medias.length > 0) {
+      this.medias.forEach(media => media.update(this.mouse.scrollY, elapsedTime))
+    }
 
     window.requestAnimationFrame(this.render.bind(this));
   }
