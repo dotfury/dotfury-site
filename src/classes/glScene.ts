@@ -97,7 +97,7 @@ export default class GlScene {
 
   createMedias() {
     const planeGeometry = new THREE.PlaneGeometry(1, 1, 32, 32);
-    const mediaElements = document.querySelectorAll('.featured-work-image');
+    const mediaElements = document.querySelectorAll('.featured-work');
     this.medias = Array.from(mediaElements).map(element => {
       const media = new Media({
         element,

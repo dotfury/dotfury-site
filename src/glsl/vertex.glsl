@@ -2,6 +2,7 @@ varying vec2 vUv;
 varying float vWave;
 
 uniform float uTime;
+uniform float uAlpha;
 
 //
 // Description : Array and textureless GLSL 2D/3D/4D simplex
