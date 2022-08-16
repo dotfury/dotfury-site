@@ -28,7 +28,6 @@ export default class Media {
   viewport;
   mesh: THREE.Mesh | null;
   bounds: DOMRect | null;
-  time: number;
   isHovering: boolean;
 
   constructor ({ element, geometry, scene, sizes, viewport }: MediaType) {
@@ -43,7 +42,6 @@ export default class Media {
     this.mesh = null;
     this.bounds = null;
 
-    this.time = 0;
     this.isHovering = false;
  
     this.createMesh();
@@ -61,7 +59,7 @@ export default class Media {
         uTexture: {value: TEXTURE_LOADER.load(this.image.src)},
         uScreenSizes: { value: [0, 0] },
         uImageSizes: { value: [0, 0] },
-        uTime: { value: 0 },
+        uProgress: { value: 0.0 },
         uAlpha: { value: 0.0 }
       },
       transparent: true
@@ -89,6 +87,7 @@ export default class Media {
 
   createEvents() {
     this.element.addEventListener('mouseenter', () => {
+      // TODO: on first hover before scroll alpha is always 0
       this.isHovering = true;
     });
 
@@ -97,7 +96,7 @@ export default class Media {
 
       if(this.mesh) {
         const material = (this.mesh.material as THREE.ShaderMaterial);
-        GSAP.to(material.uniforms.uTime, {
+        GSAP.to(material.uniforms.uProgress, {
           value: 0,
           ease: 'power1.inOut'
         });
@@ -130,16 +129,15 @@ export default class Media {
   updateWave() {
     if(this.mesh) {
       const material = (this.mesh.material as THREE.ShaderMaterial);
-      GSAP.to(material.uniforms.uTime, {
-        value: this.time,
+      material.uniforms.uAlpha.value = 1.0;
+      GSAP.to(material.uniforms.uProgress, {
+        value: material.uniforms.uProgress.value + 0.3,
         ease: 'power1.inOut'
       });
-      material.uniforms.uAlpha.value = 1.0;
     }
   }
 
-  update(y: number, time: number) {
-    this.time = time;
+  update(y: number) {
     this.updateScale();
     this.updateX();
     this.updateY(y);

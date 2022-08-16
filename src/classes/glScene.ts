@@ -112,14 +112,10 @@ export default class GlScene {
   }
 
   render() {
-    const elapsedTime = this.clock.getElapsedTime();
-
-    // this.mesh.material.uniforms.uTime.value = elapsedTime;
-
     this.renderer.render(this.scene, this.camera);
 
     if (this.medias.length > 0) {
-      this.medias.forEach(media => media.update(this.mouse.scrollY, elapsedTime))
+      this.medias.forEach(media => media.update(this.mouse.scrollY))
     }
 
     window.requestAnimationFrame(this.render.bind(this));
