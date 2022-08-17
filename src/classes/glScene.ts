@@ -1,12 +1,16 @@
 import * as THREE from "three";
 
-import Media from './media';
+import Media from "./media";
+
+type SizeType = {
+  width: number;
+  height: number;
+};
 
 export default class GlScene {
-  sizes;
-  viewport;
-  mouse;
-  canvas;
+  sizes: SizeType;
+  viewport: SizeType;
+  canvas: HTMLCanvasElement;
   renderer;
   camera;
   scene;
@@ -18,14 +22,8 @@ export default class GlScene {
       width: window.innerWidth,
       height: window.innerHeight,
     };
-    this.mouse = {
-      x: 0,
-      y: 0,
-      scrollX: 0,
-      scrollY: 0,
-    };
-    this.canvas = document.querySelector("canvas.webgl");
-    this.renderer = new THREE.WebGLRenderer({ antialias: true, canvas: this.canvas!, alpha: true });
+    this.canvas = document.querySelector("canvas.webgl")!;
+    this.renderer = new THREE.WebGLRenderer({ antialias: true, canvas: this.canvas, alpha: true });
     this.renderer.setSize(this.sizes.width, this.sizes.height);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
@@ -39,7 +37,7 @@ export default class GlScene {
 
     this.viewport = {
       height,
-      width
+      width,
     };
 
     this.clock = new THREE.Clock();
@@ -47,25 +45,12 @@ export default class GlScene {
     this.medias = [];
 
     this.setupResize();
-    this.setupMouseEvents();
     this.createMedias();
     this.render();
   }
 
   setupResize() {
     window.addEventListener("resize", this.resize.bind(this));
-  }
-
-  setupMouseEvents() {
-    window.addEventListener("scroll", () => {
-      this.mouse.scrollX = window.scrollX;
-      this.mouse.scrollY = window.scrollY;
-    });
-
-    window.addEventListener("mousemove", ({ clientX, clientY }) => {
-      this.mouse.x = clientX / this.sizes.width - 0.5;
-      this.mouse.y = clientY / this.sizes.height - 0.5;
-    });
   }
 
   resize() {
@@ -84,27 +69,29 @@ export default class GlScene {
 
     this.viewport = {
       height,
-      width
+      width,
     };
 
     if (this.medias.length > 0) {
-      this.medias.forEach(media => media.onResize({
-        sizes: this.sizes,
-        viewport: this.viewport
-      }));
+      this.medias.forEach((media) =>
+        media.onResize({
+          sizes: this.sizes,
+          viewport: this.viewport,
+        })
+      );
     }
   }
 
   createMedias() {
     const planeGeometry = new THREE.PlaneGeometry(1, 1, 32, 32);
-    const mediaElements = document.querySelectorAll('.featured-work');
-    this.medias = Array.from(mediaElements).map(element => {
+    const mediaElements = document.querySelectorAll(".featured-work");
+    this.medias = Array.from(mediaElements).map((element) => {
       const media = new Media({
         element,
         geometry: planeGeometry,
         scene: this.scene,
         sizes: this.sizes,
-        viewport: this.viewport
+        viewport: this.viewport,
       });
 
       return media;
@@ -115,7 +102,7 @@ export default class GlScene {
     this.renderer.render(this.scene, this.camera);
 
     if (this.medias.length > 0) {
-      this.medias.forEach(media => media.update(this.mouse.scrollY))
+      this.medias.forEach((media) => media.update(window.scrollY));
     }
 
     window.requestAnimationFrame(this.render.bind(this));

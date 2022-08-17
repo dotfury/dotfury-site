@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import GSAP from 'gsap';
+import GSAP from "gsap";
 
 import vertex from "../glsl/vertex.glsl?raw";
 import fragment from "../glsl/fragment.glsl?raw";
@@ -9,7 +9,7 @@ const TEXTURE_LOADER = new THREE.TextureLoader();
 type SizeType = {
   width: number;
   height: number;
-}
+};
 
 type MediaType = {
   element: any;
@@ -30,24 +30,24 @@ export default class Media {
   bounds: DOMRect | null;
   isHovering: boolean;
 
-  constructor ({ element, geometry, scene, sizes, viewport }: MediaType) {
+  constructor({ element, geometry, scene, sizes, viewport }: MediaType) {
     this.element = element;
-    this.image = this.element.querySelector('img');
- 
-    this.geometry = geometry
-    this.scene = scene
-    this.sizes = sizes
-    this.viewport = viewport
+    this.image = this.element.querySelector("img");
+
+    this.geometry = geometry;
+    this.scene = scene;
+    this.sizes = sizes;
+    this.viewport = viewport;
 
     this.mesh = null;
     this.bounds = null;
 
     this.isHovering = false;
- 
+
     this.createMesh();
-    this.createBounds();
     this.createEvents();
- 
+    this.createBounds();
+
     this.onResize({ sizes, viewport });
   }
 
@@ -56,13 +56,13 @@ export default class Media {
       vertexShader: vertex,
       fragmentShader: fragment,
       uniforms: {
-        uTexture: {value: TEXTURE_LOADER.load(this.image.src)},
+        uTexture: { value: TEXTURE_LOADER.load(this.image.src) },
         uScreenSizes: { value: [0, 0] },
         uImageSizes: { value: [0, 0] },
         uProgress: { value: 0.0 },
-        uAlpha: { value: 0.0 }
+        uAlpha: { value: 0.0 },
       },
-      transparent: true
+      transparent: true,
     });
 
     this.mesh = new THREE.Mesh(this.geometry, planeMaterial);
@@ -77,7 +77,7 @@ export default class Media {
       left: rect.left,
       top: rect.top + window.scrollY,
       width: rect.width,
-      height: rect.height
+      height: rect.height,
     };
 
     this.updateScale();
@@ -86,19 +86,18 @@ export default class Media {
   }
 
   createEvents() {
-    this.element.addEventListener('mouseenter', () => {
-      // TODO: on first hover before scroll alpha is always 0
+    this.element.addEventListener("mouseenter", () => {
       this.isHovering = true;
     });
 
-    this.element.addEventListener('mouseleave', () => {
+    this.element.addEventListener("mouseleave", () => {
       this.isHovering = false;
 
-      if(this.mesh) {
-        const material = (this.mesh.material as THREE.ShaderMaterial);
+      if (this.mesh) {
+        const material = this.mesh.material as THREE.ShaderMaterial;
         GSAP.to(material.uniforms.uProgress, {
           value: 0,
-          ease: 'power1.inOut'
+          ease: "power1.inOut",
         });
         material.uniforms.uAlpha.value = 0.0;
       }
@@ -107,33 +106,33 @@ export default class Media {
 
   updateScale() {
     if (this.mesh && this.bounds) {
-      this.mesh.scale.x = this.viewport.width * this.bounds.width / this.sizes.width;
-      this.mesh.scale.y = this.viewport.height * this.bounds.height / this.sizes.height;
+      this.mesh.scale.x = (this.viewport.width * this.bounds.width) / this.sizes.width;
+      this.mesh.scale.y = (this.viewport.height * this.bounds.height) / this.sizes.height;
     }
   }
 
   updateX(x = 0) {
     if (this.mesh && this.bounds) {
-      this.mesh.position.x = -(this.viewport.width / 2) + (this.mesh.scale.x / 2);
-      this.mesh.position.x += + ((this.bounds.left + x) / this.sizes.width) * this.viewport.width;
+      this.mesh.position.x = -(this.viewport.width / 2) + this.mesh.scale.x / 2;
+      this.mesh.position.x += +((this.bounds.left + x) / this.sizes.width) * this.viewport.width;
     }
   }
 
   updateY(y = 0) {
     if (this.mesh && this.bounds) {
-      this.mesh.position.y = (this.viewport.height / 2) - (this.mesh.scale.y / 2);
+      this.mesh.position.y = this.viewport.height / 2 - this.mesh.scale.y / 2;
       this.mesh.position.y -= ((this.bounds.top - y) / this.sizes.height) * this.viewport.height;
     }
   }
 
   updateWave() {
-    if(this.mesh) {
-      const material = (this.mesh.material as THREE.ShaderMaterial);
-      material.uniforms.uAlpha.value = 1.0;
+    if (this.mesh) {
+      const material = this.mesh.material as THREE.ShaderMaterial;
       GSAP.to(material.uniforms.uProgress, {
         value: material.uniforms.uProgress.value + 0.3,
-        ease: 'power1.inOut'
+        ease: "power1.inOut",
       });
+      material.uniforms.uAlpha.value = 1.0;
     }
   }
 
