@@ -30,7 +30,7 @@
       each work in featuredWork 
           .featured-work
             a(href=work.link target="_blank")
-              img(src=work.image)
+              img(class="featured-work-image" src=work.image)
               span.featured-work-title 
                 | !{work.title}
   section.experiments-section
@@ -59,3 +59,4 @@
         i.fa-solid.fa-envelope
     .copyright 
       | &copy;&nbsp;
+canvas.webgl
