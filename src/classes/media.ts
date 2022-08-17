@@ -88,6 +88,14 @@ export default class Media {
   createEvents() {
     this.element.addEventListener("mouseenter", () => {
       this.isHovering = true;
+      if (this.mesh) {
+        const material = this.mesh.material as THREE.ShaderMaterial;
+        GSAP.to(material.uniforms.uAlpha, {
+          value: 1.0,
+          ease: "power1",
+          duration: 0.3,
+        });
+      }
     });
 
     this.element.addEventListener("mouseleave", () => {
@@ -95,11 +103,15 @@ export default class Media {
 
       if (this.mesh) {
         const material = this.mesh.material as THREE.ShaderMaterial;
+        GSAP.to(material.uniforms.uAlpha, {
+          value: 0.0,
+          ease: "power1",
+          duration: 0.3,
+        });
         GSAP.to(material.uniforms.uProgress, {
           value: 0,
           ease: "power1.inOut",
         });
-        material.uniforms.uAlpha.value = 0.0;
       }
     });
   }
