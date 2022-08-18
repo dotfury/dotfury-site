@@ -4,7 +4,7 @@
     --border-depth: 15px;
     --_s: calc(var(--border-depth) + var(--border-length));
     background-color: $grey;
-    border: dashed $pink;
+    border: solid $pink;
     border-bottom-style: solid;
     border-width: var(--border-length) var(--border-length) var(--_s) var(--_s);
     color: $white;
