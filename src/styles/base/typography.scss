@@ -1,5 +1,5 @@
 body {
-  color: $grey;
+  color: $white;
   font-family: -apple-system, Arial, Helvetica, sans-serif;
   line-height: 1.5;
 }
@@ -41,8 +41,8 @@ h6 {
 }
 
 h1 {
-  --fluid-type-min: 6rem;
-  --fluid-type-max: 15rem;
+  --fluid-type-min: 5rem;
+  --fluid-type-max: 10rem;
   --fluid-type-target: 10vw;
 }
 
@@ -67,6 +67,8 @@ p {
 }
 
 .special {
+  color: $pink;
   font-family: Pacifico, cursive;
+  font-weight: 500;
   margin-bottom: 0;
 }
