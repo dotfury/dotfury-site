@@ -1,0 +1,80 @@
+version: 2
+
+docker_defaults: &docker_defaults
+  docker:
+    - image: circleci/node:12-stretch-browsers
+  working_directory: ~/dotfury-site
+  environment:
+    CHROME_BIN: "/usr/bin/google-chrome"
+
+attach_workspace: &attach_workspace
+  attach_workspace:
+    at: ~/dotfury-site
+
+jobs:
+  dependencies:
+    <<: *docker_defaults
+    steps:
+      - checkout
+      - *attach_workspace
+      - restore_cache:
+          name: Restore node_modules cache
+          key: dependency-cache-v1-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn --no-progress
+      - save_cache:
+          name: Save node_modules cache
+          key: dependency-cache-v1-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules/
+      - persist_to_workspace:
+          root: ~/dotfury-site
+          paths:
+            - ./
+
+  done:
+    <<: *docker_defaults
+    steps:
+      - run: echo done
+
+  build:
+    <<: *docker_defaults
+    steps:
+      - *attach_workspace
+      - run:
+          name: Build
+          command: yarn build
+
+  deploy:
+    <<: *docker_defaults
+    steps:
+      - *attach_workspace
+      - run:
+          name: Build
+          command: CONTENTFUL_ACCESS_TOKEN=$CONTENTFUL_ACCESS_TOKEN CONTENTFUL_SPACE_ID=$CONTENTFUL_SPACE_ID yarn build
+      - run:
+          name: Deploying
+          command: NODE_ENV=$CIRCLE_BRANCH yarn deploy
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - dependencies
+      - build:
+          context: aws-credentials
+          requires:
+            - dependencies
+      - done:
+          requires:
+            - build
+      - deploy:
+          context: aws-credentials
+          requires:
+            - done
+          filters:
+            branches:
+              only:
+                - staging
+                - main

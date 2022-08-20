@@ -1,8 +1,28 @@
+import WebGL from "three/examples/jsm/capabilities/WebGL";
+
 import Preloader from "./classes/preloader";
+import Title from "./classes/title";
+import Introduction from "./classes/introduction";
+import GlScene from "./classes/glScene";
 
 import "./styles/index.scss";
 
-const preloader = new Preloader(".preloader");
+const initPage = () => {
+  // title
+  new Title();
+
+  // introduction
+  new Introduction();
+
+  if (WebGL.isWebGLAvailable()) {
+    // GL
+    document.body.classList.add("webgl-available");
+    new GlScene();
+  }
+};
+
+// preload
+const preloader = new Preloader(initPage);
 preloader.start();
 
 // copyright

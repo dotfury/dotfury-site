@@ -1,0 +1,50 @@
+.introduction-section {
+  .introduction {
+    margin-bottom: 90px;
+
+    .introduction-text {
+      --fluid-type-min: 2rem;
+      --fluid-type-max: 3rem;
+    }
+  }
+
+  .information {
+    .details {
+      .detail-section {
+        margin-bottom: 10px;
+
+        ul li {
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+}
+
+@include mobile {
+  .introduction-section {
+    .introduction {
+      padding: 0 20px;
+    }
+
+    .information {
+      .details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 50px;
+
+        .detail-section {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+@include ipad {
+  .introduction-section {
+    .introduction {
+      padding: 0 50px;
+    }
+  }
+}

@@ -1,45 +1,35 @@
-@import "reset";
-@import "breakpoints";
-@import "variables";
-@import "preloader";
-@import "slider";
-@import "footer";
+// base
+@import "base/reset";
+@import "base/breakpoints";
+@import "base/variables";
+@import "base/typography";
+// blocks
+@import "blocks/preloader";
+@import "blocks/preloader-cube";
+@import "blocks/title";
+@import "blocks/scroll-arrow";
+@import "blocks/introduction";
+@import "blocks/featured-work";
+@import "blocks/featured-work-title";
+@import "blocks/text-link";
+@import "blocks/footer";
 
 body {
-  color: $grey;
-  padding: 0 20px 20px;
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: $grey;
 
   &.loading {
     overflow: hidden;
   }
 }
 
-h2 {
-  font-size: 3rem;
+.page-wrapper {
+  margin: 0 auto;
+  max-width: 1400px;
+  padding: 0 20px 20px;
 }
 
-h3 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-}
-
-h5 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.special {
-  font-family: Pacifico, cursive;
-  font-size: 5rem;
-}
-
-.title-section {
-  align-items: center;
-  display: flex;
-  justify-content: center;
+.flow > * + * {
+  margin-top: 50px;
 }
 
 .section-block {
@@ -47,70 +37,19 @@ h5 {
   width: 100%;
 }
 
-.introduction-section {
-  margin-bottom: 50px;
-
-  .introduction {
-    font-size: clamp(2rem, calc(3.6vw - 0.1rem), 3rem);
-    margin-bottom: 90px;
-  }
-
-  .information {
-    .details {
-      .detail-section {
-        margin-bottom: 10px;
-
-        ul li {
-          margin-bottom: 5px;
-        }
-      }
-    }
-  }
-}
-
+.display-experiments,
 .display-samples {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 30px;
   max-width: 600px;
-
-  a {
-    border-bottom: 1px dashed $grey;
-    padding-bottom: 1px;
-    text-transform: lowercase;
-    transition: all 0.5s;
-
-    &:hover {
-      border-color: $pink;
-    }
-  }
 }
 
-@include mobile {
-  .introduction-section {
-    .introduction {
-      padding: 0 20px;
-    }
-
-    .information {
-      .details {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 50px;
-
-        .detail-section {
-          margin-bottom: 0;
-        }
-      }
-    }
-  }
-}
-
-@include ipad {
-  .introduction-section {
-    .introduction {
-      padding: 0 50px;
-    }
-  }
+.webgl {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

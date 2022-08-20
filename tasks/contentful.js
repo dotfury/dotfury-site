@@ -9,16 +9,23 @@ const sanitizer = require("./contentful-sanitizer");
 const SPACE = process.env.CONTENTFUL_SPACE_ID;
 const TOKEN = process.env.CONTENTFUL_ACCESS_TOKEN;
 const BASE_URL = `https://cdn.contentful.com/spaces/${SPACE}/entries?access_token=${TOKEN}&content_type=`;
+const ASSET_URL = `https://cdn.contentful.com/spaces/${SPACE}/assets?access_token=${TOKEN}`;
+const DATA_DIRECTORY = "./data";
 
-const ABOUT_PAGE_FILE = "./data/about.json";
-const FEATURED_WORK_FILE = "./data/featured.json";
-const EXPERIMENTS_FILE = "./data/experiment.json";
-const SAMPLES_FILE = "./data/samples.json";
-const MEDIAS_FILE = "./data/medias.json";
+if (!fs.existsSync(DATA_DIRECTORY)) {
+  fs.mkdirSync(DATA_DIRECTORY);
+}
+
+const ABOUT_PAGE_FILE = `${DATA_DIRECTORY}/about.json`;
+const FEATURED_WORK_FILE = `${DATA_DIRECTORY}/featured.json`;
+const EXPERIMENTS_FILE = `${DATA_DIRECTORY}/experiment.json`;
+const SAMPLES_FILE = `${DATA_DIRECTORY}/samples.json`;
+const MEDIAS_FILE = `${DATA_DIRECTORY}/medias.json`;
 
 const converter = new showdown.Converter();
 
 let MEDIAS = [];
+let assetStore = [];
 
 function writeToFile(file, content) {
   fs.writeFile(file, JSON.stringify(content, null, "\t"), (error) => {
@@ -37,6 +44,19 @@ function parseMedias(data) {
   return fileUrls;
 }
 
+async function createAssetStore(assets) {
+  assetStore = assets.map(({ sys, fields }) => {
+    const url = fields.file.url;
+
+    MEDIAS = MEDIAS.concat(url);
+
+    return {
+      id: sys.id,
+      url: url,
+    };
+  });
+}
+
 function parseAboutSection(data) {
   const content = sanitizer.sanitizeBasicData(data.items[0]);
   const { title, introduction, frontEnd, backEnd, creative } = content;
@@ -51,36 +71,28 @@ function parseAboutSection(data) {
 }
 
 async function parseFeaturedWork(data) {
-  const medias = await parseMedias(data.includes.Asset);
-  const cleanedData = sanitizer.sanitizeArray(data.items);
-  const content = cleanedData.map(
-    ({ title, link, description, screenshot }) => {
-      const imageId = screenshot.sys.id;
-      const image = medias.find((m) => m.includes(imageId));
+  const cleanedData = sanitizer.sanitizeArray(data.includes.Entry).sort((a, b) => a.order - b.order);
+  const content = cleanedData.map(({ title, link, description, screenshot }) => {
+    const imageId = screenshot.sys.id;
+    const image = assetStore.find((m) => m.id === imageId);
 
-      return {
-        title,
-        link,
-        image,
-        description: converter.makeHtml(description),
-      };
-    }
-  );
+    return {
+      title,
+      link,
+      image: image.url,
+      description: converter.makeHtml(description),
+    };
+  });
 
   writeToFile(FEATURED_WORK_FILE, content);
 }
 
 async function parseExperiments(data) {
-  const medias = await parseMedias(data.includes.Asset);
   const cleanedData = sanitizer.sanitizeArray(data.items);
-  const content = cleanedData.map(({ title, link, image }) => {
-    const imageId = image.sys.id;
-    const imageContent = medias.find((m) => m.includes(imageId));
-
+  const content = cleanedData.map(({ title, link }) => {
     return {
       title,
       link,
-      image: imageContent,
     };
   });
 
@@ -107,14 +119,25 @@ function getContentType(type) {
     });
 }
 
+function getAssets() {
+  return fetch(ASSET_URL)
+    .then((response) => response.json())
+    .catch((e) => {
+      throw new Error(e);
+    });
+}
+
 async function getContent() {
+  const assets = await getAssets();
+  await createAssetStore(assets.items);
+
   const aboutPage = await getContentType("aboutPage");
-  const featuredWork = await getContentType("featuredWork");
+  const featuredWorks = await getContentType("featuredWorks");
   const experiments = await getContentType("creativeProject");
   const samples = await getContentType("codeSample");
 
   parseAboutSection(aboutPage);
-  parseFeaturedWork(featuredWork);
+  parseFeaturedWork(featuredWorks);
   parseExperiments(experiments);
   parseSamples(samples);
 

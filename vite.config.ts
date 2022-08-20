@@ -12,4 +12,5 @@ const locals = { medias, featuredWork, about, experiments, samples };
 
 export default defineConfig({
   plugins: [pugPlugin(options, locals)],
+  publicDir: "./data",
 });
