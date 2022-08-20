@@ -1,3 +1,5 @@
+import WebGL from "three/examples/jsm/capabilities/WebGL";
+
 import Preloader from "./classes/preloader";
 import Title from "./classes/title";
 import Introduction from "./classes/introduction";
@@ -12,8 +14,11 @@ const initPage = () => {
   // introduction
   new Introduction();
 
-  // GL
-  new GlScene();
+  if (WebGL.isWebGLAvailable()) {
+    // GL
+    document.body.classList.add("webgl-available");
+    new GlScene();
+  }
 };
 
 // preload
