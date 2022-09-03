@@ -4,4 +4,33 @@
   flex-direction: column;
   justify-content: center;
   position: relative;
+
+  h1 {
+    transform: scale(0);
+  }
+}
+
+// post-load animation
+.loaded {
+  .title-section h1 {
+    animation: scale-text 400ms ease-out forwards;
+  }
+}
+
+@keyframes scale-text {
+  0% {
+    transform: scale(0);
+  }
+
+  75% {
+    transform: scale(1.6);
+  }
+
+  90% {
+    transform: scale(0.8);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }

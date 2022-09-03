@@ -9,7 +9,7 @@ export default class Preloader {
   private medias: string[];
   private loadedMediaCount: number;
   private mediaCount: number;
-  private animateOut: GSAPTimeline | null;
+  private animateOut: GSAPTimeline;
   private callback: () => void;
 
   constructor(callback: () => void) {
@@ -19,7 +19,7 @@ export default class Preloader {
     this.medias = medias;
     this.mediaCount = this.medias.length;
     this.loadedMediaCount = 0;
-    this.animateOut = null;
+    this.animateOut = GSAP.timeline();
     this.callback = callback;
   }
 
@@ -50,13 +50,11 @@ export default class Preloader {
   }
 
   onLoadCompleted() {
-    this.animateOut = GSAP.timeline({
-      delay: 1,
-    });
-
     this.animateOut.to(this.element, {
       autoAlpha: 0,
+      delay: 0.5,
       duration: 1,
+      ease: "power1",
     });
 
     this.animateOut.call(() => {
