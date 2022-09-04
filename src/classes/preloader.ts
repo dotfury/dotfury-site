@@ -3,19 +3,21 @@ import GSAP from "gsap";
 import medias from "../../data/medias.json";
 
 export default class Preloader {
-  private body: HTMLElement;
-  private element: HTMLElement;
-  private percentCount: HTMLElement;
-  private medias: string[];
-  private loadedMediaCount: number;
-  private mediaCount: number;
-  private animateOut: GSAPTimeline;
-  private callback: () => void;
+  body: HTMLElement;
+  element: HTMLElement;
+  cube: HTMLElement;
+  percentCount: HTMLElement;
+  medias: string[];
+  loadedMediaCount: number;
+  mediaCount: number;
+  animateOut: GSAPTimeline;
+  callback: () => void;
 
   constructor(callback: () => void) {
     this.body = document.body;
     this.element = document.querySelector(".preloader")!;
     this.percentCount = document.querySelector(".percent-count")!;
+    this.cube = document.querySelector(".cube-container")!;
     this.medias = medias;
     this.mediaCount = this.medias.length;
     this.loadedMediaCount = 0;
@@ -50,12 +52,18 @@ export default class Preloader {
   }
 
   onLoadCompleted() {
-    this.animateOut.to(this.element, {
-      autoAlpha: 0,
-      delay: 0.5,
-      duration: 1,
-      ease: "power1",
-    });
+    this.animateOut
+      .to(this.cube, {
+        delay: 0.2,
+        duration: 0.2,
+        ease: "power1",
+        transform: "scale(1.5)",
+      })
+      .to(this.cube, {
+        duration: 0.4,
+        ease: "power1.out",
+        transform: "scale(0)",
+      });
 
     this.animateOut.call(() => {
       this.body.classList.remove("loading");
