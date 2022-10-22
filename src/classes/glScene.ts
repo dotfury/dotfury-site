@@ -2,7 +2,6 @@ import * as THREE from "three";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
 import typefaceFont from "three/examples/fonts/helvetiker_regular.typeface.json?url";
-// import typefaceFont from "../fonts/pacifico_regular.json?url";
 
 import Media from "./media";
 
