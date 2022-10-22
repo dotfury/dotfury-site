@@ -1,4 +1,8 @@
 import * as THREE from "three";
+import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
+import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
+import typefaceFont from "three/examples/fonts/helvetiker_regular.typeface.json?url";
+// import typefaceFont from "../fonts/pacifico_regular.json?url";
 
 import Media from "./media";
 
@@ -16,6 +20,7 @@ export default class GlScene {
   scene;
   clock;
   medias: any[];
+  text: THREE.Mesh | null;
 
   constructor() {
     this.sizes = {
@@ -39,6 +44,30 @@ export default class GlScene {
       height,
       width,
     };
+
+    this.text = null;
+    const fontLoader = new FontLoader();
+
+    fontLoader.load(typefaceFont, (font) => {
+      const textGeometry = new TextGeometry("dotfury", {
+        font,
+        size: 0.5,
+        height: 0.5,
+        curveSegments: 2,
+        bevelEnabled: true,
+        bevelThickness: 0.03,
+        bevelSize: 0.02,
+        bevelOffset: 0,
+        bevelSegments: 5,
+      });
+
+      textGeometry.center();
+
+      const textMaterial = new THREE.MeshBasicMaterial({ wireframe: true, color: new THREE.Color('#f21e8c') });
+      this.text = new THREE.Mesh(textGeometry, textMaterial);
+      this.text.position.z = -5;
+      this.scene.add(this.text);
+    });
 
     this.clock = new THREE.Clock();
 
@@ -103,6 +132,10 @@ export default class GlScene {
 
     if (this.medias.length > 0) {
       this.medias.forEach((media) => media.update(window.scrollY));
+    }
+
+    if (this.text) {
+      this.text.position.y = window.scrollY / 150;
     }
 
     window.requestAnimationFrame(this.render.bind(this));
