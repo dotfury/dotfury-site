@@ -44,6 +44,8 @@ export default class GlScene {
 
     this.camera = new THREE.PerspectiveCamera(45, this.sizes.width / this.sizes.width, 0.01, 100);
     this.camera.position.z = 1;
+    this.camera.aspect = this.sizes.width / this.sizes.height;
+    this.camera.updateProjectionMatrix();
     this.scene = new THREE.Scene();
     this.cameraTarget = new THREE.Vector3(0, 0, 0);
 
@@ -106,7 +108,7 @@ export default class GlScene {
       width: window.innerWidth,
       height: window.innerHeight,
     };
-console.log(this.text)
+
     this.camera.aspect = this.sizes.width / this.sizes.height;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(this.sizes.width, this.sizes.height);
