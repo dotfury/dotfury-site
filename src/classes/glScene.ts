@@ -87,7 +87,7 @@ export default class GlScene {
     });
 
     this.setupResize();
-    this.setupEvents();
+    this.setupMouseEvents();
     this.createMedias();
     this.render();
   }
@@ -96,7 +96,7 @@ export default class GlScene {
     window.addEventListener("resize", this.resize.bind(this));
   }
 
-  setupEvents() {
+  setupMouseEvents() {
     window.addEventListener("mousemove", ({ clientX, clientY }) => {
       this.cursor.x = clientX / this.sizes.width - 0.5;
       this.cursor.y = -(clientY / this.sizes.height - 0.5);
