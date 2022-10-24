@@ -14,10 +14,11 @@ const initPage = () => {
   // introduction
   new Introduction();
 
-  if (WebGL.isWebGLAvailable()) {
-    // GL
+  if (WebGL.isWebGLAvailable() && !window.matchMedia('(any-pointer: coarse)').matches) {
     document.body.classList.add("webgl-available");
     new GlScene();
+  } else {
+    document.body.classList.add("webgl-unavailable");
   }
 };
 
