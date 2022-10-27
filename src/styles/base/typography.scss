@@ -72,3 +72,8 @@ p {
 	font-weight: 700;
 	margin-bottom: 0;
 }
+
+.shadowed,
+.detail-section h4 {
+	text-shadow: rgba(0, 0, 0, 0.7) 2px 3px 2px;
+}
