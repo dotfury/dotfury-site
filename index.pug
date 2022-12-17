@@ -28,8 +28,8 @@
     .featured-work-container
       each work in featuredWork 
           .featured-work
-            a(href=work.link target="_blank")
-              img(class="featured-work-image" src=work.image)
+            a(href=work.link target="_blank" aria-label=work.title)
+              img(class="featured-work-image" src=work.image alt=work.title)
               span.featured-work-title 
                 | !{work.title}
   section.experiments-section
