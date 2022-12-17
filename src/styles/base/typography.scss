@@ -1,7 +1,7 @@
 body {
-  color: $white;
-  font-family: -apple-system, Arial, Helvetica, sans-serif;
-  line-height: 1.5;
+	color: $white;
+	font-family: -apple-system, Arial, Helvetica, sans-serif;
+	line-height: 1.5;
 }
 
 h1,
@@ -10,8 +10,8 @@ h3,
 h4,
 h5,
 h6 {
-  line-height: 1.1;
-  font-weight: 700;
+	line-height: 1.1;
+	font-weight: 700;
 }
 
 h1,
@@ -21,54 +21,59 @@ h4,
 h5,
 h6,
 p {
-  font-size: clamp(
-    var(--fluid-type-min, 1rem),
-    calc(1rem + var(--fluid-type-target, 3vw)),
-    var(--fluid-type-max, 1.3rem)
-  );
+	font-size: clamp(
+		var(--fluid-type-min, 1rem),
+		calc(1rem + var(--fluid-type-target, 3vw)),
+		var(--fluid-type-max, 1.3rem)
+	);
 }
 
 h1,
 h2,
 h3 {
-  margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 h4,
 h5,
 h6 {
-  margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 h1 {
-  --fluid-type-min: 5rem;
-  --fluid-type-max: 10rem;
-  --fluid-type-target: 10vw;
+	--fluid-type-min: 5rem;
+	--fluid-type-max: 10rem;
+	--fluid-type-target: 10vw;
 }
 
 h2 {
-  --fluid-type-min: 1.8rem;
-  --fluid-type-max: 2.5rem;
+	--fluid-type-min: 1.8rem;
+	--fluid-type-max: 2.5rem;
 }
 
 h3 {
-  --fluid-type-min: 1.5rem;
-  --fluid-type-max: 2rem;
+	--fluid-type-min: 1.5rem;
+	--fluid-type-max: 2rem;
 }
 
 h4 {
-  --fluid-type-min: 1.2rem;
-  --fluid-type-max: 1.4rem;
+	--fluid-type-min: 1.2rem;
+	--fluid-type-max: 1.4rem;
 }
 
 p {
-  line-height: 1.2;
-  max-width: 60ch;
+	line-height: 1.2;
+	max-width: 60ch;
 }
 
 .special {
-  color: $pink;
-  font-family: Pacifico, cursive;
-  font-weight: 500;
-  margin-bottom: 0;
+	color: $pink;
+	font-family: Pacifico, cursive;
+	font-weight: 700;
+	margin-bottom: 0;
+}
+
+.shadowed,
+.detail-section h4 {
+	text-shadow: rgba(0, 0, 0, 0.7) 2px 3px 2px;
 }

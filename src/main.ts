@@ -8,10 +8,7 @@ import GlScene from "./classes/glScene";
 import "./styles/index.scss";
 
 const initPage = () => {
-  // title
   new Title();
-
-  // introduction
   new Introduction();
 
   if (WebGL.isWebGLAvailable() && !window.matchMedia('(any-pointer: coarse)').matches) {
@@ -22,7 +19,6 @@ const initPage = () => {
   }
 };
 
-// preload
 const preloader = new Preloader(initPage);
 preloader.start();
 
