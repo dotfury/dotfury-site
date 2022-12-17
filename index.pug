@@ -24,23 +24,23 @@
         .detail-section
           | !{about.creative}
   section.works-section
-    h2 Projects
+    h2.shadowed Projects
     .featured-work-container
       each work in featuredWork 
           .featured-work
-            a(href=work.link target="_blank")
-              img(class="featured-work-image" src=work.image)
+            a(href=work.link target="_blank" aria-label=work.title)
+              img(class="featured-work-image" src=work.image alt=work.title)
               span.featured-work-title 
                 | !{work.title}
   section.experiments-section
-    h2 Experiments
+    h2.shadowed Experiments
     .display-experiments
       each experiment in experiments 
         div
           a(class="text-link" href=experiment.link target="_blank")
             | #{experiment.title}
   section.samples-section
-    h2 Code Samples
+    h2.shadowed Code Samples
     .display-samples
       each sample in samples
         div
